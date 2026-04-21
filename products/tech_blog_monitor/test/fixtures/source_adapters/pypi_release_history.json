@@ -1,0 +1,19 @@
+{
+  "info": {
+    "name": "fastapi",
+    "summary": "FastAPI framework, high performance, easy to learn, fast to code, ready for production.",
+    "package_url": "https://pypi.org/project/fastapi"
+  },
+  "releases": {
+    "0.116.0": [
+      {
+        "upload_time_iso_8601": "2026-04-17T03:15:00Z"
+      }
+    ],
+    "0.115.2": [
+      {
+        "upload_time_iso_8601": "2026-04-02T08:45:00Z"
+      }
+    ]
+  }
+}

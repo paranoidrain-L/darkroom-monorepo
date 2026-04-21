@@ -1,0 +1,117 @@
+# Tech Blog Monitor — RSS 源外置配置示例
+# 通过环境变量 TECH_BLOG_FEEDS_YAML 指定此文件路径
+#
+# 字段说明：
+#   name        显示名称（必填）
+#   url         RSS 地址（必填）
+#   category    分类名，用于报告分组和关键词过滤（必填）
+#   timeout     请求超时秒数（默认 15）
+#   verify_ssl  是否验证 SSL 证书（默认 true，SSL 有问题的源设为 false）
+#   headers     额外请求头（默认空）
+#   enabled     是否启用（默认 true，设为 false 可临时禁用而不删除）
+
+feeds:
+  - name: OpenAI News
+    url: https://openai.com/news/rss.xml
+    category: 行业风向标
+
+  - name: Google DeepMind
+    url: https://deepmind.google/blog/rss.xml
+    category: 行业风向标
+
+  - name: NVIDIA Technical Blog
+    url: https://developer.nvidia.com/blog/feed/
+    category: 行业风向标
+
+  - name: Google for Developers
+    url: https://blog.google/technology/developers/rss/
+    category: 行业风向标
+
+  - name: Microsoft Research Blog
+    url: https://www.microsoft.com/en-us/research/blog/feed/
+    category: 行业风向标
+    enabled: false     # 当前环境实测 403
+
+  - name: a16z Future
+    url: https://future.a16z.com/feed/
+    category: 行业风向标
+    enabled: false     # 当前环境实测 403
+
+  - name: CVF Open Access (cs.CV)
+    url: https://arxiv.org/rss/cs.CV
+    category: 自动驾驶/3D感知
+
+  - name: Lilian Weng (Lil'Log)
+    url: https://lilianweng.github.io/index.xml
+    category: AI Agent/工程实践
+
+  - name: LangChain Blog
+    url: https://blog.langchain.com/rss/
+    category: AI Agent/工程实践
+    enabled: false     # 当前环境实测 404
+
+  - name: Simon Willison
+    url: https://simonwillison.net/atom/everything/
+    category: AI Agent/工程实践
+
+  - name: Weaviate Blog
+    url: https://www.weaviate.io/blog/rss.xml
+    category: AI Agent/工程实践
+
+  - name: Lightning AI Blog
+    url: https://lightning.ai/pages/blog/feed/
+    category: AI Agent/工程实践
+
+  - name: GitHub Blog
+    url: https://github.blog/feed/
+    category: AI Agent/工程实践
+
+  - name: The Batch (Andrew Ng)
+    url: https://charonhub.deeplearning.ai/rss/
+    category: 深度技术
+
+  - name: Hugging Face Blog
+    url: https://huggingface.co/blog/feed.xml
+    category: 深度技术
+
+  - name: Andrej Karpathy
+    url: https://karpathy.github.io/feed.xml
+    category: 深度技术
+
+  - name: PyTorch Blog
+    url: https://pytorch.org/blog/feed/
+    category: 深度技术
+
+  - name: AWS Machine Learning Blog
+    url: https://aws.amazon.com/blogs/machine-learning/feed/
+    category: 深度技术
+
+  - name: BAIR Blog
+    url: https://bair.berkeley.edu/blog/feed.xml
+    category: 深度技术
+
+  - name: Netflix Tech Blog
+    url: https://netflixtechblog.com/feed
+    category: 深度技术
+    verify_ssl: false   # SSL 证书有问题
+
+  - name: Cloudflare Blog
+    url: https://blog.cloudflare.com/rss/
+    category: 深度技术
+
+  - name: Spotify Engineering
+    url: https://engineering.atspotify.com/feed/
+    category: 深度技术
+
+  - name: Trail of Bits Blog
+    url: https://blog.trailofbits.com/feed/
+    category: 深度技术
+
+  - name: The Pragmatic Engineer
+    url: https://blog.pragmaticengineer.com/rss/
+    category: 深度技术
+
+  - name: Uber Engineering
+    url: https://www.uber.com/en-US/blog/engineering/rss/
+    category: 深度技术
+    enabled: false      # 406 错误，暂时禁用

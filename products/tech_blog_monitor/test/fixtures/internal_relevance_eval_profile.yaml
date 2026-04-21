@@ -1,0 +1,21 @@
+name: eval-profile
+
+dependencies:
+  - name: fastapi
+    aliases: [fastapi]
+    weight: 1.4
+  - name: react
+    aliases: [react, next.js]
+    weight: 1.2
+
+topics:
+  - name: inference_infra
+    keywords:
+      - inference serving
+      - gpu scheduling
+    weight: 1.0
+
+source_priorities:
+  github_releases: 1.5
+  changelog: 1.2
+  rss: 0.6

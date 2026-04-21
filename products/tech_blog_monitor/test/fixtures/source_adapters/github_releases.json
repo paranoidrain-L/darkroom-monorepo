@@ -1,0 +1,38 @@
+[
+  {
+    "name": "uv 0.8.0",
+    "tag_name": "0.8.0",
+    "html_url": "https://github.com/astral-sh/uv/releases/tag/0.8.0",
+    "body": "Stabilizes workspace lockfiles and resolver performance.",
+    "draft": false,
+    "prerelease": false,
+    "published_at": "2026-04-18T09:30:00Z"
+  },
+  {
+    "name": "uv 0.9.0-rc1",
+    "tag_name": "0.9.0-rc1",
+    "html_url": "https://github.com/astral-sh/uv/releases/tag/0.9.0-rc1",
+    "body": "Release candidate for a future rollout.",
+    "draft": false,
+    "prerelease": true,
+    "published_at": "2026-04-19T08:00:00Z"
+  },
+  {
+    "name": "uv 0.8.1 Draft",
+    "tag_name": "0.8.1",
+    "html_url": "https://github.com/astral-sh/uv/releases/tag/0.8.1",
+    "body": "Draft release should be ignored.",
+    "draft": true,
+    "prerelease": false,
+    "published_at": "2026-04-19T09:00:00Z"
+  },
+  {
+    "name": "uv 0.7.9",
+    "tag_name": "0.7.9",
+    "html_url": "https://github.com/astral-sh/uv/releases/tag/0.7.9",
+    "body": "Fixes resolver edge cases.",
+    "draft": false,
+    "prerelease": false,
+    "published_at": "2026-04-15T07:00:00Z"
+  }
+]

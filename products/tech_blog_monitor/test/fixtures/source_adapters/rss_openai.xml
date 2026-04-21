@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>OpenAI News</title>
+    <link>https://openai.com/news/</link>
+    <description>OpenAI announcements</description>
+    <item>
+      <title>Reasoning updates for agents</title>
+      <link>https://openai.com/news/reasoning-updates-for-agents</link>
+      <description>New tool use and memory controls for agent systems.</description>
+      <pubDate>Sat, 18 Apr 2026 10:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Realtime audio stack improvements</title>
+      <link>https://openai.com/news/realtime-audio-stack</link>
+      <description>Latency and fidelity improvements for multimodal applications.</description>
+      <pubDate>Fri, 17 Apr 2026 09:00:00 GMT</pubDate>
+    </item>
+  </channel>
+</rss>

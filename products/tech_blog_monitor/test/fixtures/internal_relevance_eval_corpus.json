@@ -1,0 +1,81 @@
+{
+  "articles": [
+    {
+      "title": "FastAPI 0.116.0",
+      "url": "https://example.com/a1",
+      "source_name": "FastAPI Release History",
+      "source_type": "changelog",
+      "one_line_summary": "FastAPI request validation update"
+    },
+    {
+      "title": "React server component update",
+      "url": "https://example.com/a2",
+      "source_name": "Official Blog",
+      "source_type": "rss",
+      "one_line_summary": "React tooling updates"
+    },
+    {
+      "title": "GPU scheduling changes",
+      "url": "https://example.com/a3",
+      "source_name": "NVIDIA Technical Blog",
+      "source_type": "rss",
+      "clean_text": "This release focuses on inference serving and GPU scheduling."
+    },
+    {
+      "title": "uv release improves dependency workflows",
+      "url": "https://example.com/a4",
+      "source_name": "uv Releases",
+      "source_type": "github_releases",
+      "clean_text": "FastAPI templates now integrate with uv workflows."
+    },
+    {
+      "title": "Next.js runtime changes",
+      "url": "https://example.com/a5",
+      "source_name": "Official Blog",
+      "source_type": "rss",
+      "one_line_summary": "Next.js adds server runtime options for React apps."
+    },
+    {
+      "title": "Database vacuum tuning",
+      "url": "https://example.com/b1",
+      "clean_text": "PostgreSQL tuning"
+    },
+    {
+      "title": "CSS animation guide",
+      "url": "https://example.com/b2",
+      "clean_text": "Design systems and motion"
+    },
+    {
+      "title": "Data warehouse migration",
+      "url": "https://example.com/b3",
+      "clean_text": "ETL jobs"
+    },
+    {
+      "title": "Kubernetes DNS tips",
+      "url": "https://example.com/b4",
+      "clean_text": "Cluster DNS"
+    },
+    {
+      "title": "macOS productivity apps",
+      "url": "https://example.com/b5",
+      "clean_text": "note taking"
+    },
+    {
+      "title": "Observability metrics cleanup",
+      "url": "https://example.com/b6",
+      "clean_text": "alert routing"
+    },
+    {
+      "title": "Security patch roundup",
+      "url": "https://example.com/b7",
+      "clean_text": "kernel CVEs"
+    }
+  ],
+  "relevant_urls": [
+    "https://example.com/a1",
+    "https://example.com/a2",
+    "https://example.com/a3",
+    "https://example.com/a4",
+    "https://example.com/a5"
+  ]
+}

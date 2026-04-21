@@ -1,0 +1,51 @@
+[
+  {
+    "query_id": "topic_memory",
+    "query_kind": "topic",
+    "query": "Which article covers agent memory for long-running tasks?",
+    "relevant_article_ids": ["agent_memory"],
+    "notes": "Topic query over the offline eval corpus."
+  },
+  {
+    "query_id": "source_openai_workflow",
+    "query_kind": "source_aware",
+    "query": "Which OpenAI News post explains durable workflows?",
+    "relevant_article_ids": ["durable_workflow"],
+    "notes": "Source-aware query that should prefer the OpenAI durable workflow article."
+  },
+  {
+    "query_id": "why_compare_safety_governance",
+    "query_kind": "why_compare",
+    "query": "Why do safety benchmarks matter for release governance?",
+    "relevant_article_ids": ["safety_benchmarks", "release_checklists"],
+    "notes": "Why/compare-style query with two relevant articles to exercise recall@k."
+  },
+  {
+    "query_id": "synonym_context_retention",
+    "query_kind": "synonym",
+    "query": "long-term context retention for autonomous agents",
+    "relevant_article_ids": ["agent_memory"],
+    "notes": "Synonym phrasing for the agent memory article."
+  },
+  {
+    "query_id": "weak_lexical_history",
+    "query_kind": "weak_lexical_semantic",
+    "query": "copilot handoff relaunch",
+    "relevant_article_ids": ["agent_memory"],
+    "notes": "Zero lexical overlap query that should only match the agent memory article via the eval embedding hint."
+  },
+  {
+    "query_id": "hard_release_checklist",
+    "query_kind": "hard_negative_pressure",
+    "query": "Which article explains launch holdbacks with checklists before shipping a model?",
+    "relevant_article_ids": ["release_checklists"],
+    "notes": "Hard query that keeps headroom for P1.2 by letting the current lexical-heavy baseline rank the checklist article behind the safety benchmark article."
+  },
+  {
+    "query_id": "release_holds",
+    "query_kind": "hard_negative_pressure",
+    "query": "Which writeup describes holdback criteria before a launch?",
+    "relevant_article_ids": ["release_checklists"],
+    "notes": "Second hard governance query where legacy lexical matching overweights the benchmark article while hybrid ranking recovers the checklist article."
+  }
+]

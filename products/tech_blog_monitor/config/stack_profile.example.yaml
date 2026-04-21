@@ -1,0 +1,33 @@
+name: default-stack-profile
+
+dependencies:
+  - name: fastapi
+    aliases: [starlette, pydantic]
+    weight: 1.5
+  - name: uv
+    aliases: [astral uv]
+    weight: 1.2
+  - name: react
+    aliases: [next.js, nextjs]
+    weight: 1.0
+
+topics:
+  - name: ai_agents
+    keywords:
+      - agent orchestration
+      - tool calling
+      - multi-agent
+      - workflow state
+    weight: 1.3
+  - name: inference_infra
+    keywords:
+      - inference serving
+      - model deployment
+      - gpu scheduling
+      - distributed checkpointing
+    weight: 1.0
+
+source_priorities:
+  github_releases: 1.5
+  changelog: 1.2
+  rss: 0.6

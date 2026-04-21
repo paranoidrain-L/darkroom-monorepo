@@ -1,0 +1,16 @@
+{
+  "items": [
+    {
+      "title": "Python 3.14 beta 1",
+      "url": "https://www.python.org/downloads/release/python-3140b1/",
+      "summary": "First beta with interpreter and typing improvements.",
+      "published_at": "2026-04-10T12:00:00Z"
+    },
+    {
+      "title": "Python 3.13.2",
+      "url": "https://www.python.org/downloads/release/python-3132/",
+      "summary": "Bugfix release for the 3.13 line.",
+      "published_at": "2026-04-05T12:00:00Z"
+    }
+  ]
+}

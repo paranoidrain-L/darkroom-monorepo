@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>PyTorch Blog</title>
+    <link>https://pytorch.org/blog/</link>
+    <description>PyTorch engineering blog</description>
+    <item>
+      <title>PyTorch compiler ergonomics</title>
+      <link>https://pytorch.org/blog/compiler-ergonomics</link>
+      <description>Compiler UX improvements for model developers.</description>
+      <pubDate>Thu, 16 Apr 2026 08:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Distributed checkpointing for large models</title>
+      <link>https://pytorch.org/blog/distributed-checkpointing</link>
+      <description>New checkpoint patterns for large-scale training.</description>
+      <pubDate>Wed, 15 Apr 2026 07:00:00 GMT</pubDate>
+    </item>
+  </channel>
+</rss>
