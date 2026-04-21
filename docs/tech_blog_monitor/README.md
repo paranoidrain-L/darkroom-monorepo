@@ -7,6 +7,7 @@
 ```text
 docs/tech_blog_monitor/
 ├── README.md
+├── quickstart.md      # 面向外部用户的 5 分钟上手
 ├── feeds/            # feed 配置说明与示例
 ├── roadmap/          # 执行路线、长期规划、质量迭代、rebaseline
 ├── modernization/    # P0 / P1 / P1.5 / P2 现代化方案与归档
@@ -15,6 +16,10 @@ docs/tech_blog_monitor/
 ```
 
 ## 推荐阅读顺序
+
+### 初次上手
+
+- [quickstart.md](quickstart.md)
 
 ### 当前路线
 
@@ -50,6 +55,7 @@ docs/tech_blog_monitor/
 
 ### 运行与配置
 
+- [quickstart.md](quickstart.md)
 - [feeds/rss-feeds.md](feeds/rss-feeds.md)
 - [feeds/rss-feeds-example.yaml](feeds/rss-feeds-example.yaml)
 - [operations/tech_blog_monitor_operations_runbook.md](operations/tech_blog_monitor_operations_runbook.md)

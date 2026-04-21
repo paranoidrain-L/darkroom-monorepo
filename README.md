@@ -105,6 +105,7 @@ uv run uvicorn products.tech_blog_monitor.api.app:app --host 127.0.0.1 --port 80
 
 - [products/tech_blog_monitor/README.md](products/tech_blog_monitor/README.md)
 - [docs/tech_blog_monitor/README.md](docs/tech_blog_monitor/README.md)
+- [docs/tech_blog_monitor/quickstart.md](docs/tech_blog_monitor/quickstart.md)
 - [.env.example](.env.example)
 
 ## Docs

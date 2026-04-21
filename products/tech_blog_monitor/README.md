@@ -32,6 +32,10 @@
 
 ## 快速开始
 
+如果你是第一次从公开仓体验这个产品，先看：
+
+- [docs/tech_blog_monitor/quickstart.md](../../docs/tech_blog_monitor/quickstart.md)
+
 推荐使用 `uv`：
 
 ```bash
