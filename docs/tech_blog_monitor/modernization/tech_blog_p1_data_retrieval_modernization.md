@@ -52,7 +52,7 @@
 
 两者关系如下：
 
-- 历史 `Phase 1`：已经完成，用 sqlite 建立最小可用资产层，见 [docs/tech_blog_monitor/phases/tech_blog_phase1_asset_design.md](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/docs/tech_blog_monitor/phases/tech_blog_phase1_asset_design.md)
+- 历史 `Phase 1`：已经完成，用 sqlite 建立最小可用资产层，见 [docs/tech_blog_monitor/phases/tech_blog_phase1_asset_design.md](../phases/tech_blog_phase1_asset_design.md)
 - 现代化 `P1`：在当前 sqlite 基线上，把系统演进到 `Postgres-ready + repository-ready + retrieval-ready`
 
 因此，这个 P1 的目标不是回头重做“资产层有没有”，而是升级：
@@ -119,11 +119,11 @@ P1 也不应做：
 P0 完成后，当前系统基线如下：
 
 - 配置层已拆分并支持 `pydantic-settings`
-- 最小 FastAPI API 已存在，见 [products/tech_blog_monitor/api/app.py](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/products/tech_blog_monitor/api/app.py)
-- 当前 API 仍通过 sqlite 资产库读取数据，见 [products/tech_blog_monitor/api/deps.py](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/products/tech_blog_monitor/api/deps.py)
-- 当前查询仍直接依赖 `ArchiveStore`，见 [products/tech_blog_monitor/search.py](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/products/tech_blog_monitor/search.py)
-- 当前数据层核心仍为巨型 [products/tech_blog_monitor/archive_store.py](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/products/tech_blog_monitor/archive_store.py)
-- 当前 retrieval 仍使用 fake embedding，见 [products/tech_blog_monitor/retrieval.py](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/products/tech_blog_monitor/retrieval.py)
+- 最小 FastAPI API 已存在，见 [products/tech_blog_monitor/api/app.py](../../../products/tech_blog_monitor/api/app.py)
+- 当前 API 仍通过 sqlite 资产库读取数据，见 [products/tech_blog_monitor/api/deps.py](../../../products/tech_blog_monitor/api/deps.py)
+- 当前查询仍直接依赖 `ArchiveStore`，见 [products/tech_blog_monitor/search.py](../../../products/tech_blog_monitor/search.py)
+- 当前数据层核心仍为巨型 [products/tech_blog_monitor/archive_store.py](../../../products/tech_blog_monitor/archive_store.py)
+- 当前 retrieval 仍使用 fake embedding，见 [products/tech_blog_monitor/retrieval.py](../../../products/tech_blog_monitor/retrieval.py)
 
 当前主要技术限制：
 
@@ -317,9 +317,9 @@ P1 建议引入：
 ### 涉及文件
 
 - 新增 `products/tech_blog_monitor/db/...`
-- 更新 [pyproject.toml](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/pyproject.toml)
-- 更新 [products/tech_blog_monitor/settings.py](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/products/tech_blog_monitor/settings.py)
-- 更新 [products/tech_blog_monitor/config.py](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/products/tech_blog_monitor/config.py)
+- 更新 [pyproject.toml](../../../pyproject.toml)
+- 更新 [products/tech_blog_monitor/settings.py](../../../products/tech_blog_monitor/settings.py)
+- 更新 [products/tech_blog_monitor/config.py](../../../products/tech_blog_monitor/config.py)
 
 ### 验收
 
@@ -419,8 +419,8 @@ P1 建议引入：
 
 优先迁移：
 
-- [products/tech_blog_monitor/api/deps.py](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/products/tech_blog_monitor/api/deps.py)
-- [products/tech_blog_monitor/search.py](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/products/tech_blog_monitor/search.py)
+- [products/tech_blog_monitor/api/deps.py](../../../products/tech_blog_monitor/api/deps.py)
+- [products/tech_blog_monitor/search.py](../../../products/tech_blog_monitor/search.py)
 - `insights.py`
 - `feedback.py`
 

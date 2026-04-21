@@ -11,50 +11,48 @@ docs/tech_blog_monitor/
 ├── roadmap/          # 执行路线、长期规划、质量迭代、rebaseline
 ├── modernization/    # P0 / P1 / P1.5 / P2 现代化方案与归档
 ├── phases/           # 历史 phase 设计文档
-└── operations/       # runbook、session risk、todo
+└── operations/       # 公开 runbook
 ```
 
 ## 推荐阅读顺序
 
 ### 当前路线
 
-- [roadmap/tech_blog_long_term_roadmap.md](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/docs/tech_blog_monitor/roadmap/tech_blog_long_term_roadmap.md)
-- [roadmap/tech_blog_capability_vsm_mapping.md](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/docs/tech_blog_monitor/roadmap/tech_blog_capability_vsm_mapping.md)
-- [roadmap/tech_blog_next_stage_development_plan.md](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/docs/tech_blog_monitor/roadmap/tech_blog_next_stage_development_plan.md)
-- [roadmap/P1_2_PLAN.md](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/docs/tech_blog_monitor/roadmap/P1_2_PLAN.md)
-- [roadmap/P1_3_PLAN.md](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/docs/tech_blog_monitor/roadmap/P1_3_PLAN.md)
-- [roadmap/P1_4_PLAN.md](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/docs/tech_blog_monitor/roadmap/P1_4_PLAN.md)
-- [roadmap/P1_5_DESIGN.md](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/docs/tech_blog_monitor/roadmap/P1_5_DESIGN.md)
-- [roadmap/tech_blog_execution_roadmap.md](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/docs/tech_blog_monitor/roadmap/tech_blog_execution_roadmap.md)
-- [roadmap/tech_blog_quality_iteration_plan.md](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/docs/tech_blog_monitor/roadmap/tech_blog_quality_iteration_plan.md)
+- [roadmap/tech_blog_long_term_roadmap.md](roadmap/tech_blog_long_term_roadmap.md)
+- [roadmap/tech_blog_capability_vsm_mapping.md](roadmap/tech_blog_capability_vsm_mapping.md)
+- [roadmap/tech_blog_next_stage_development_plan.md](roadmap/tech_blog_next_stage_development_plan.md)
+- [roadmap/P1_2_PLAN.md](roadmap/P1_2_PLAN.md)
+- [roadmap/P1_3_PLAN.md](roadmap/P1_3_PLAN.md)
+- [roadmap/P1_4_PLAN.md](roadmap/P1_4_PLAN.md)
+- [roadmap/P1_5_DESIGN.md](roadmap/P1_5_DESIGN.md)
+- [roadmap/tech_blog_execution_roadmap.md](roadmap/tech_blog_execution_roadmap.md)
+- [roadmap/tech_blog_quality_iteration_plan.md](roadmap/tech_blog_quality_iteration_plan.md)
 
 ### 现代化归档
 
-- [modernization/tech_monitor_modernization_plan.md](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/docs/tech_blog_monitor/modernization/tech_monitor_modernization_plan.md)
-- [modernization/P2_1_PLAN.md](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/docs/tech_blog_monitor/modernization/P2_1_PLAN.md)
-- [modernization/P2_2_PLAN.md](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/docs/tech_blog_monitor/modernization/P2_2_PLAN.md)
-- [modernization/P2_3_PLAN.md](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/docs/tech_blog_monitor/modernization/P2_3_PLAN.md)
-- [modernization/tech_blog_p1_data_retrieval_modernization.md](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/docs/tech_blog_monitor/modernization/tech_blog_p1_data_retrieval_modernization.md)
-- [modernization/tech_blog_p1_5_content_extraction_modernization.md](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/docs/tech_blog_monitor/modernization/tech_blog_p1_5_content_extraction_modernization.md)
-- [modernization/tech_blog_p2_observability_orchestration_modernization.md](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/docs/tech_blog_monitor/modernization/tech_blog_p2_observability_orchestration_modernization.md)
+- [modernization/tech_monitor_modernization_plan.md](modernization/tech_monitor_modernization_plan.md)
+- [modernization/P2_1_PLAN.md](modernization/P2_1_PLAN.md)
+- [modernization/P2_2_PLAN.md](modernization/P2_2_PLAN.md)
+- [modernization/P2_3_PLAN.md](modernization/P2_3_PLAN.md)
+- [modernization/tech_blog_p1_data_retrieval_modernization.md](modernization/tech_blog_p1_data_retrieval_modernization.md)
+- [modernization/tech_blog_p1_5_content_extraction_modernization.md](modernization/tech_blog_p1_5_content_extraction_modernization.md)
+- [modernization/tech_blog_p2_observability_orchestration_modernization.md](modernization/tech_blog_p2_observability_orchestration_modernization.md)
 
 ### 历史设计
 
-- [phases/tech_blog_phase1_asset_design.md](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/docs/tech_blog_monitor/phases/tech_blog_phase1_asset_design.md)
-- [phases/tech_blog_phase2_content_fetch.md](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/docs/tech_blog_monitor/phases/tech_blog_phase2_content_fetch.md)
-- [phases/tech_blog_phase3_enrichment.md](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/docs/tech_blog_monitor/phases/tech_blog_phase3_enrichment.md)
-- [phases/tech_blog_phase4_search.md](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/docs/tech_blog_monitor/phases/tech_blog_phase4_search.md)
-- [phases/tech_blog_phase5_rag.md](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/docs/tech_blog_monitor/phases/tech_blog_phase5_rag.md)
-- [phases/tech_blog_phase6_insights.md](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/docs/tech_blog_monitor/phases/tech_blog_phase6_insights.md)
-- [phases/tech_blog_phase7_productization.md](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/docs/tech_blog_monitor/phases/tech_blog_phase7_productization.md)
+- [phases/tech_blog_phase1_asset_design.md](phases/tech_blog_phase1_asset_design.md)
+- [phases/tech_blog_phase2_content_fetch.md](phases/tech_blog_phase2_content_fetch.md)
+- [phases/tech_blog_phase3_enrichment.md](phases/tech_blog_phase3_enrichment.md)
+- [phases/tech_blog_phase4_search.md](phases/tech_blog_phase4_search.md)
+- [phases/tech_blog_phase5_rag.md](phases/tech_blog_phase5_rag.md)
+- [phases/tech_blog_phase6_insights.md](phases/tech_blog_phase6_insights.md)
+- [phases/tech_blog_phase7_productization.md](phases/tech_blog_phase7_productization.md)
 
 ### 运行与配置
 
-- [feeds/rss-feeds.md](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/docs/tech_blog_monitor/feeds/rss-feeds.md)
-- [feeds/rss-feeds-example.yaml](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/docs/tech_blog_monitor/feeds/rss-feeds-example.yaml)
-- [operations/tech_blog_monitor_operations_runbook.md](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/docs/tech_blog_monitor/operations/tech_blog_monitor_operations_runbook.md)
-- [operations/tech_blog_monitor_session_risk.md](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/docs/tech_blog_monitor/operations/tech_blog_monitor_session_risk.md)
-- [operations/tech_blog_monitor_todo.md](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/docs/tech_blog_monitor/operations/tech_blog_monitor_todo.md)
+- [feeds/rss-feeds.md](feeds/rss-feeds.md)
+- [feeds/rss-feeds-example.yaml](feeds/rss-feeds-example.yaml)
+- [operations/tech_blog_monitor_operations_runbook.md](operations/tech_blog_monitor_operations_runbook.md)
 
 ## 整理原则
 

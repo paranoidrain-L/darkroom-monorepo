@@ -20,7 +20,3 @@ reports/tech_blog/
 *.db
 *.sqlite
 *.sqlite3
-# S3 凭证配置文件，包含敏感信息，不提交到 git
-s3_config.json
-# ONES Wiki 凭证配置文件，包含敏感信息，不提交到 git
-config/ones_wiki_config.json

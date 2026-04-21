@@ -17,7 +17,7 @@
 
 - 不拆双仓
 - 先做一个公开 monorepo
-- 后续如需公开 `products/feishu_bot/`，继续放在同一个公开仓中
+- 后续如需公开更多 products，继续放在同一个公开仓中
 
 因此本文回答的不是“哪些东西理论上可以开源”，而是：
 
@@ -27,7 +27,7 @@
 
 执行删除时，请配合：
 
-- [docs/process/public_monorepo_v1_delete_manifest.md](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/docs/process/public_monorepo_v1_delete_manifest.md)
+- [docs/process/public_monorepo_v1_delete_manifest.md](public_monorepo_v1_delete_manifest.md)
 
 执行导出时，优先使用：
 

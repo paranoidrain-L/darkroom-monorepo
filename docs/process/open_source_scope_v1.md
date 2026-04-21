@@ -15,7 +15,7 @@
 
 实际执行时，请配合：
 
-- [docs/process/public_monorepo_v1_checklist.md](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/docs/process/public_monorepo_v1_checklist.md)
+- [docs/process/public_monorepo_v1_checklist.md](public_monorepo_v1_checklist.md)
 
 ## V1 范围清单
 

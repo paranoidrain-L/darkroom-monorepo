@@ -24,7 +24,7 @@
 
 当前已确认的首批公开范围见：
 
-- [docs/process/open_source_scope_v1.md](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/docs/process/open_source_scope_v1.md)
+- [docs/process/open_source_scope_v1.md](open_source_scope_v1.md)
 
 当前 `V1` 只公开四块：
 

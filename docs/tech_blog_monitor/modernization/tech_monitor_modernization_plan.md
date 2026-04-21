@@ -396,7 +396,7 @@
 
 执行规划文档见：
 
-- [docs/tech_blog_monitor/modernization/tech_blog_p2_observability_orchestration_modernization.md](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/docs/tech_blog_monitor/modernization/tech_blog_p2_observability_orchestration_modernization.md)
+- [docs/tech_blog_monitor/modernization/tech_blog_p2_observability_orchestration_modernization.md](tech_blog_p2_observability_orchestration_modernization.md)
 
 ### 当前状态
 

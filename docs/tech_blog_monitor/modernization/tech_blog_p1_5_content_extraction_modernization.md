@@ -20,7 +20,7 @@
   `12 passed`
 - `UV_CACHE_DIR=/tmp/uv-cache uv run pytest -q products/tech_blog_monitor/test`
   `203 passed, 1 skipped`
-- `/home/SENSETIME/luoshunwei/.local/bin/ruff check products/tech_blog_monitor`
+- `uv run ruff check products/tech_blog_monitor`
   `All checks passed!`
 
 当前仍保留的非阻塞尾项：
@@ -43,7 +43,7 @@
 
 历史正文抓取基线见：
 
-- [docs/tech_blog_monitor/phases/tech_blog_phase2_content_fetch.md](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/docs/tech_blog_monitor/phases/tech_blog_phase2_content_fetch.md)
+- [docs/tech_blog_monitor/phases/tech_blog_phase2_content_fetch.md](../phases/tech_blog_phase2_content_fetch.md)
 
 ## 立项前状态
 
@@ -58,7 +58,7 @@
 
 当前主实现位于：
 
-- [products/tech_blog_monitor/content_fetcher.py](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/products/tech_blog_monitor/content_fetcher.py)
+- [products/tech_blog_monitor/content_fetcher.py](../../../products/tech_blog_monitor/content_fetcher.py)
 
 立项前的主要限制：
 
@@ -159,7 +159,7 @@ P1.5 不只是“换个抽取器”，还要解决：
 
 当前核心文件：
 
-- [products/tech_blog_monitor/content_fetcher.py](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/products/tech_blog_monitor/content_fetcher.py)
+- [products/tech_blog_monitor/content_fetcher.py](../../../products/tech_blog_monitor/content_fetcher.py)
 
 P1.5 完成后，建议至少演进到：
 
@@ -233,7 +233,7 @@ P1.5 建议新增最小配置面：
 
 1. 抽出当前启发式实现
 
-把当前 [content_fetcher.py](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/products/tech_blog_monitor/content_fetcher.py) 中的：
+把当前 [content_fetcher.py](../../../products/tech_blog_monitor/content_fetcher.py) 中的：
 
 - HTML 清洗
 - 正文提取

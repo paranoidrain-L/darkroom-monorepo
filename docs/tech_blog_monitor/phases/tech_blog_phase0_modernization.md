@@ -226,9 +226,9 @@ P0 合格交付物应包含：
 
 ### 涉及文件
 
-- [requirements.txt](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/requirements.txt)
-- 新增 [pyproject.toml](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/pyproject.toml)
-- 更新 [products/tech_blog_monitor/README.md](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/products/tech_blog_monitor/README.md)
+- [requirements.txt](../../../requirements.txt)
+- 新增 [pyproject.toml](../../../pyproject.toml)
+- 更新 [products/tech_blog_monitor/README.md](../../../products/tech_blog_monitor/README.md)
 
 ### 验收
 
@@ -302,13 +302,13 @@ P0 合格交付物应包含：
 
 ### 涉及文件
 
-- [products/tech_blog_monitor/config.py](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/products/tech_blog_monitor/config.py)
-- 新增 [products/tech_blog_monitor/defaults.py](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/products/tech_blog_monitor/defaults.py)
-- 新增 [products/tech_blog_monitor/feed_catalog.py](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/products/tech_blog_monitor/feed_catalog.py)
-- 新增 [products/tech_blog_monitor/config_loader.py](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/products/tech_blog_monitor/config_loader.py)
-- 新增 [products/tech_blog_monitor/config_validator.py](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/products/tech_blog_monitor/config_validator.py)
-- 新增 [products/tech_blog_monitor/settings.py](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/products/tech_blog_monitor/settings.py)
-- 更新 [products/tech_blog_monitor/test/test_config.py](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/products/tech_blog_monitor/test/test_config.py)
+- [products/tech_blog_monitor/config.py](../../../products/tech_blog_monitor/config.py)
+- 新增 [products/tech_blog_monitor/defaults.py](../../../products/tech_blog_monitor/defaults.py)
+- 新增 [products/tech_blog_monitor/feed_catalog.py](../../../products/tech_blog_monitor/feed_catalog.py)
+- 新增 [products/tech_blog_monitor/config_loader.py](../../../products/tech_blog_monitor/config_loader.py)
+- 新增 [products/tech_blog_monitor/config_validator.py](../../../products/tech_blog_monitor/config_validator.py)
+- 新增 [products/tech_blog_monitor/settings.py](../../../products/tech_blog_monitor/settings.py)
+- 更新 [products/tech_blog_monitor/test/test_config.py](../../../products/tech_blog_monitor/test/test_config.py)
 
 ### 验收
 
@@ -465,12 +465,12 @@ uv run uvicorn products.tech_blog_monitor.api.app:app --reload
 
 ### 涉及文件
 
-- 新增 [products/tech_blog_monitor/api/app.py](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/products/tech_blog_monitor/api/app.py)
-- 新增 [products/tech_blog_monitor/api/deps.py](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/products/tech_blog_monitor/api/deps.py)
-- 新增 [products/tech_blog_monitor/api/schemas.py](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/products/tech_blog_monitor/api/schemas.py)
-- 更新 [products/tech_blog_monitor/archive_store.py](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/products/tech_blog_monitor/archive_store.py)
-- 更新 [products/tech_blog_monitor/README.md](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/products/tech_blog_monitor/README.md)
-- 新增 API 测试文件，例如 [products/tech_blog_monitor/test/test_api.py](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/products/tech_blog_monitor/test/test_api.py)
+- 新增 [products/tech_blog_monitor/api/app.py](../../../products/tech_blog_monitor/api/app.py)
+- 新增 [products/tech_blog_monitor/api/deps.py](../../../products/tech_blog_monitor/api/deps.py)
+- 新增 [products/tech_blog_monitor/api/schemas.py](../../../products/tech_blog_monitor/api/schemas.py)
+- 更新 [products/tech_blog_monitor/archive_store.py](../../../products/tech_blog_monitor/archive_store.py)
+- 更新 [products/tech_blog_monitor/README.md](../../../products/tech_blog_monitor/README.md)
+- 新增 API 测试文件，例如 [products/tech_blog_monitor/test/test_api.py](../../../products/tech_blog_monitor/test/test_api.py)
 
 ### 验收
 

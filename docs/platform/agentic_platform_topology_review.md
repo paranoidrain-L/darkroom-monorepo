@@ -2,7 +2,7 @@
 
 ## 目标
 
-这份文档对 [agentic_platform_topology.md](/home/SENSETIME/luoshunwei/WorkSpace/agent_workspace/agents/docs/platform/agentic_platform_topology.md) 提出的 `SubAgent` 协作模式做一版简要评估。
+这份文档对 [agentic_platform_topology.md](agentic_platform_topology.md) 提出的 `SubAgent` 协作模式做一版简要评估。
 
 评价重点不是复述拓扑，而是回答下面几个问题：
 

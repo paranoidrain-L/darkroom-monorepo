@@ -48,7 +48,7 @@ repo/
 - 私有运维文档
 - 企业 CI / 部署脚本
 
-后续如果继续开放 `products/feishu_bot/`，仍会放在同一个公开 monorepo 中。
+后续如果继续开放更多 products，仍会放在同一个公开 monorepo 中。
 
 ## Runtime
 
