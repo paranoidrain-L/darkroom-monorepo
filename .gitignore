@@ -2,6 +2,11 @@ __pycache__/
 *.pyc
 .pytest_cache/
 .mypy_cache/
+.ruff_cache/
+.venv/
+.env
+.env.*
+!.env.example
 .claude/
 coverage.xml
 ai_review_report.md
@@ -11,6 +16,10 @@ diagnosis_report.md
 diagnosis_*.md
 investigation_*.md
 reports/issue_monitor/
+reports/tech_blog/
+*.db
+*.sqlite
+*.sqlite3
 # S3 凭证配置文件，包含敏感信息，不提交到 git
 s3_config.json
 # ONES Wiki 凭证配置文件，包含敏感信息，不提交到 git

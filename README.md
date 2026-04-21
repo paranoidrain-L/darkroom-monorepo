@@ -105,6 +105,7 @@ uv run uvicorn products.tech_blog_monitor.api.app:app --host 127.0.0.1 --port 80
 
 - [products/tech_blog_monitor/README.md](products/tech_blog_monitor/README.md)
 - [docs/tech_blog_monitor/README.md](docs/tech_blog_monitor/README.md)
+- [.env.example](.env.example)
 
 ## Docs
 
@@ -139,6 +140,13 @@ uv sync --group dev
 uv run pytest -q runtime/test products/tech_blog_monitor/test
 uv run ruff check runtime products/tech_blog_monitor
 ```
+
+协作入口：
+
+- [CONTRIBUTING.md](CONTRIBUTING.md)
+- [.github/pull_request_template.md](.github/pull_request_template.md)
+- [.github/ISSUE_TEMPLATE/bug_report.md](.github/ISSUE_TEMPLATE/bug_report.md)
+- [.github/ISSUE_TEMPLATE/feature_request.md](.github/ISSUE_TEMPLATE/feature_request.md)
 
 ## One-Line Summary
 
