@@ -10,33 +10,40 @@
 - sqlite / PostgreSQL-ready 数据面
 - 本地优先的 observability / task / orchestration 底座
 
-## 一眼看懂
+## 当前状态
 
 当前主链路可以概括为：
 
 `RSS -> 抓取过滤 -> 增量判断 -> 正文提取 -> AI enrichment -> stack relevance -> Markdown/JSON 输出 -> 资产落库 -> search / QA / insights / delivery / feedback / ops`
 
-当前阶段已经完成：
+当前已经完成：
 
 - `P0`：开发底座与最小 API
 - `P1`：数据与检索底座现代化
 - `P1.5`：正文抽取现代化
 - `P2`：运行观测、任务模型与渐进式 orchestration
+- modularized `RunMonitorService` 默认主路径切到 `bootstrap -> run_monitor_bindings -> run_monitor_runtime`
+- `search / qa / insights / feedback / ops / retrieval / config` 已改为包结构，顶层 public surface 已基本收口为稳定 facade + composition root + runtime wrapper
+- `legacy_stages/` 目录已删除，默认 port bindings 已不再回退到 legacy adapter
+- `monitor_compat.py`、`archive_store.py`、`delivery.py` 这三个顶层 compat facade 已删除；对应行为分别下沉到 `monitor_runtime_support/compat_orchestration.py`、`archive_store_ops/facade.py`、`delivery_support/*`
+
+当前可以把“模块化重构完成”定义为：
+
+- 默认 run path、bootstrap、application pipeline、default port bindings 已全部切到新结构
+- 顶层 legacy/compat facade 已删除，不再占用产品根目录 public surface
+- 架构门禁、静态类型门禁、全量回归门禁都已经恢复并通过
+- 当前剩余工作已不再属于“重构尾巴”，而是能力增强与运行形态演进
 
 当前明确还没做完：
 
 - 更强的站点级正文抽取规则
-- 更复杂的 retrieval / RAG 排序质量
-- Prefect 正式编排主路径与平台级 deployment lifecycle
-- 更成熟的操作面与产品化访问入口
+- 更复杂的 retrieval / ranking / RAG 质量
+- Prefect 正式编排主路径与 deployment lifecycle
+- 更成熟的产品化访问入口与异步 worker 闭环
 
 ## 快速开始
 
-如果你是第一次从公开仓体验这个产品，先看：
-
-- [docs/tech_blog_monitor/quickstart.md](../../docs/tech_blog_monitor/quickstart.md)
-
-推荐使用 `uv`：
+推荐先同步开发依赖：
 
 ```bash
 uv sync --group dev
@@ -62,7 +69,7 @@ PYTHONPATH=. python -m products.tech_blog_monitor.agent
 PYTHONPATH=. python -m products.tech_blog_monitor.agent --output report.md
 ```
 
-启动定时服务并立刻跑一次：
+启动调度并立刻跑一次：
 
 ```bash
 PYTHONPATH=. python -m products.tech_blog_monitor.agent serve --run-now
@@ -74,7 +81,7 @@ PYTHONPATH=. python -m products.tech_blog_monitor.agent serve --run-now
 uv run uvicorn products.tech_blog_monitor.api.app:app --host 127.0.0.1 --port 8000
 ```
 
-如果当前环境尚未安装 `uv`，仍可兼容使用：
+如果当前环境没有 `uv`，仍可兼容使用：
 
 ```bash
 pip install -r requirements.txt
@@ -82,7 +89,62 @@ PYTHONPATH=. python -m products.tech_blog_monitor.agent --help
 pytest -q products/tech_blog_monitor/test
 ```
 
-## 当前能力边界
+## 质量门禁
+
+当前建议直接看三条主门禁：
+
+- 已通过的 full-package static gate：`ruff check products/tech_blog_monitor`、`mypy products/tech_blog_monitor`
+- 已通过的 full-package regression gate：`pytest -q products/tech_blog_monitor/test`（`2026-04-30` 快照为 `365 passed, 1 skipped`）
+- 已通过的高信号回归：`architecture + behavior + bootstrap + monitor + persistence`，以及 `API / search / QA / insights / ops / feedback / delivery / observability / fetcher / prefect` 相关测试子集
+
+常用命令：
+
+```bash
+PYTHONPATH=. python -m mypy products/tech_blog_monitor
+ruff check products/tech_blog_monitor
+pytest -q products/tech_blog_monitor/test
+```
+
+当前 `mypy` 配置已显式使用 `follow_imports = "skip"`，避免把 `IPython` / `prompt_toolkit` / `nbformat` 这一类第三方运行时依赖树整棵拖入静态检查；主门禁仍然覆盖 `products/tech_blog_monitor` 自身源码。
+
+如果只想针对 `run_monitor` 主链路做 focused mypy：
+
+```bash
+PYTHONPATH=. python -m mypy \
+  products/tech_blog_monitor/application/run_monitor_contracts.py \
+  products/tech_blog_monitor/application/run_monitor_records.py \
+  products/tech_blog_monitor/application/run_monitor_prepare_pipeline.py \
+  products/tech_blog_monitor/application/run_monitor_finalize_pipeline.py \
+  products/tech_blog_monitor/monitor_runtime_support/lifecycle.py \
+  products/tech_blog_monitor/monitor_runtime_support/prepare.py \
+  products/tech_blog_monitor/monitor_runtime_support/finalize.py \
+  products/tech_blog_monitor/db/run_persistence.py \
+  products/tech_blog_monitor/run_monitor_bindings.py
+```
+
+## 存储与收口结果
+
+当前写侧策略已经明确：
+
+- 配置了 `TECH_BLOG_DATABASE_URL` 时，主写路径是 repository-backed `database_url`
+- 只配置 `TECH_BLOG_ASSET_DB_PATH` 时，主写路径是对应 sqlite
+- `mirror_database` 只做派生镜像，不再反向决定主路径语义
+
+当前收口结果：
+
+- 顶层 compat facade 已删除
+- `prepare_legacy_run` / `finalize_legacy_run` 仅保留在 `monitor_runtime_support/compat_orchestration.py` 这个归属模块里
+- `ArchiveStore` 类本体仅保留在 `archive_store_ops/facade.py`
+- delivery public API 直接收口到 `delivery_support/*`
+
+测试侧当前也已经完成一轮收口：
+
+- `ArchiveStore` 不再作为通用测试造数入口
+- repository-backed sqlite fixture 已集中到 `test/sqlite_testkit.py`
+- `archive_store_ops/*` 的 sqlite 行为测试已集中到 `test/archive_store_testkit.py` + `test_archive_store_ops.py`
+- `test_archive_store.py` 只保留 `ArchiveStore` smoke contract，直接验证 `archive_store_ops/facade.py`
+
+## 能力边界
 
 已落地能力：
 
@@ -145,8 +207,8 @@ flowchart TD
     P --> R[report.md]
     Q --> S[report.json]
 
-    Q --> T{asset_db_path?}
-    T -- yes --> U[ArchiveStore.record_run]
+    Q --> T{asset_db_path / database_url?}
+    T -- yes --> U[repository-backed<br/>run persistence]
     T -- no --> V[跳过资产入库]
 
     U --> U1[(runs)]
@@ -163,7 +225,7 @@ flowchart TD
     Y --> Z[Webhook]
     X -- no --> AA[跳过分发]
 
-    U --> AB[feedback_cli / feedback API]
+    U --> AB[feedback CLI / feedback API]
     AB --> AC[(feedback)]
 
     Q --> AD{archive_dir?}
@@ -173,57 +235,61 @@ flowchart TD
 
 ## 目录结构
 
-当前目录已经从早期的单文件脚本，演进为“主链路 + 数据层 + 抽取器 + 运行底座 + API”的分层结构：
+当前目录已经从早期的单文件脚本，收口为“稳定入口 + application/use case + package 化 feature surface + data/runtime support”的结构：
 
 ```text
 products/tech_blog_monitor/
-├── agent.py                 # 统一 CLI 入口：run / serve / task / ops / feedback
-├── monitor.py               # 主执行链路：fetch -> content -> analyze -> report -> archive
-├── fetcher.py               # source adapter 调度、抓取、去重、feed 健康状态
-├── content_fetcher.py       # 正文抓取调度与 fallback 链
-├── analyzer.py              # AI enrichment 与趋势分析
-├── reporter.py              # Markdown 报告渲染
-├── state.py                 # 增量状态存储
-├── archive_store.py         # sqlite 资产写入兼容层
-├── repository_provider.py   # sqlite / database_url 统一读取入口
-├── search.py                # 搜索能力
-├── retrieval.py             # retrieval / embedding 相关逻辑
-├── qa.py                    # QA 主逻辑
-├── insights.py              # insights 聚合分析
-├── delivery.py              # 分发与 webhook
-├── feedback.py              # feedback 读写逻辑
-├── ops.py                   # 运行 KPI / ops summary 聚合
-├── local_scheduler.py       # APScheduler 本地调度实现
-├── scheduler.py             # 调度兼容 facade
-├── defaults.py              # 默认值常量
-├── settings.py              # 环境变量设置模型
-├── config.py                # 对外配置兼容层
-├── config_loader.py         # 环境变量 / YAML 加载
-├── config_validator.py      # 配置校验
-├── feed_catalog.py          # 默认 feed catalog
-├── content_quality.py       # 正文质量判断
-├── search_cli.py            # 搜索 CLI
-├── qa_cli.py                # QA CLI
-├── insights_cli.py          # insights CLI
-├── feedback_cli.py          # feedback CLI
+├── agent.py                 # 统一 CLI 入口
+├── monitor.py               # 稳定 facade，仅负责调用 bootstrap service
+├── bootstrap.py             # composition root
+├── bootstrap_ports.py       # 默认 direct port 绑定
+├── run_monitor_bindings.py  # 默认 run-monitor binding surface
+├── run_monitor_runtime.py   # 默认 runtime-native stage wrappers
+├── scheduler.py             # 调度 facade
+├── fetcher.py / content_fetcher.py / analyzer.py / reporter.py
+├── application/             # use case / pipeline / service contracts
+├── archive_store_ops/       # sqlite archive facade + low-level ops
 ├── api/                     # FastAPI 接口层
-├── db/                      # SQLAlchemy / schema / repository 数据层
-├── extractors/              # 正文抽取器实现
-├── source_adapters/         # source adapter 协议与 RSS adapter
-├── observability/           # run / task / stage 结构化观测与 exporter bridge
-├── orchestration/           # local / prefect orchestration backend
-├── tasks/                   # 标准化任务模型与 runner
+├── cli/                     # CLI helper surface
+├── config/                  # defaults / settings / loader / validator / catalog
+├── db/                      # SQLAlchemy schema / repository / persistence helpers
+├── delivery_support/        # delivery adapter / helper 支撑
+├── domain/                  # core models / report views / identity helpers
+├── feedback/                # feedback package surface
+├── insights/                # insights package surface
+├── monitor_runtime_support/ # prepare/finalize/lifecycle/summary runtime helpers
+├── observability/           # run / task / stage 结构化观测
+├── ops/                     # ops package surface
+├── orchestration/           # local backend / local scheduler / prefect adapter
+├── ports/                   # feed/content/render/publish/state/persist contracts
+├── qa/ / retrieval/ / search/
+├── tasks/                   # task request/result/runner surface
 └── test/                    # 回归测试与 fixtures
 ```
 
 理解方式：
 
-- 主链路入口：`agent.py`、`monitor.py`、`local_scheduler.py`
+- 主链路入口：`agent.py`、`monitor.py`、`bootstrap.py`
+- application/use case：`application/`、`ports/`、`run_monitor_bindings.py`、`run_monitor_runtime.py`
 - 抓取与内容理解：`fetcher.py`、`source_adapters/`、`content_fetcher.py`、`extractors/`、`analyzer.py`
-- 数据与查询：`archive_store.py`、`db/`、`repository_provider.py`、`search.py`、`retrieval.py`、`qa.py`、`insights.py`
-- 产品化输出：`delivery.py`、`feedback.py`、`ops.py`、`api/`
+- 数据与查询：`archive_store_ops/`、`db/`、`search/`、`retrieval/`、`qa/`、`insights/`
+- 产品化输出：`delivery_support/`、`feedback/`、`ops/`、`api/`
 - 运行底座：`observability/`、`tasks/`、`orchestration/`
-- 配置系统：`defaults.py`、`settings.py`、`config.py`、`config_loader.py`、`config_validator.py`、`feed_catalog.py`
+- 配置系统：`config/`
+
+### 顶层 Python 文件说明
+
+当前顶层 `.py` 文件仍然存在，但已经不再是“历史遗留脚本堆积”，主要分成三类：
+
+- 稳定入口与组合根：`agent.py`、`monitor.py`、`bootstrap.py`、`scheduler.py`
+- 默认主链路运行面：`bootstrap_ports.py`、`direct_port_adapters.py`、`run_monitor_bindings.py`、`run_monitor_runtime.py`
+- 仍被多处复用的核心实现模块：`fetcher.py`、`content_fetcher.py`、`analyzer.py`、`reporter.py`、`state.py`、`chunking.py`、`content_quality.py`
+
+因此，“顶层文件偏多”在当前更多是组织收口问题，不再是 legacy 兼容层未清理。下一批若继续压缩目录，优先级最高的通常是把薄 facade 或单点 helper 继续下沉，例如：
+
+- `scheduler.py`：可继续并到 `orchestration/local_scheduler.py`
+- `content_quality.py`：可并回 `content_fetcher.py` 或下沉到 `extractors/`
+- `chunking.py`：可下沉到 `archive_store_ops/` 或 `retrieval/` 邻近模块
 
 ## 模块与技术映射
 
@@ -231,19 +297,19 @@ products/tech_blog_monitor/
 
 | 模块 | 主要文件 | 使用技术 |
 | --- | --- | --- |
-| CLI 与本地调度 | `agent.py`、`local_scheduler.py`、`scheduler.py` | Python `argparse` 子命令 CLI、`APScheduler` 定时调度、`pathlib` 文件路径管理、`loguru` 日志 |
-| 主执行链路 | `monitor.py`、`reporter.py`、`state.py` | Python dataclass / dict 序列化、`json` 结构化输出、Markdown 字符串渲染、增量状态文件、阶段化 run context |
-| Source 抓取层 | `fetcher.py`、`source_adapters/`、`feed_catalog.py` | `requests` HTTP 抓取、`feedparser` RSS/Atom 解析、`ThreadPoolExecutor` 并发抓取、重试退避、source adapter 抽象 |
+| CLI 与调度 | `agent.py`、`scheduler.py`、`orchestration/local_scheduler.py` | Python `argparse` 子命令 CLI、`APScheduler` 定时调度、`pathlib` 文件路径管理、`loguru` 日志 |
+| 主执行链路 | `monitor.py`、`bootstrap.py`、`application/`、`run_monitor_bindings.py`、`run_monitor_runtime.py` | composition root、标准 ports、pipeline coordinator、runtime wrapper、阶段化 run context |
+| Source 抓取层 | `fetcher.py`、`source_adapters/`、`config/catalog.py` | `requests` HTTP 抓取、`feedparser` RSS/Atom 解析、`ThreadPoolExecutor` 并发抓取、重试退避、source adapter 抽象 |
 | 非 RSS 扩源 | `source_adapters/github_releases_adapter.py`、`source_adapters/changelog_adapter.py` | GitHub Releases API、结构化 JSON/HTML 解析、统一 `Article` 归一化、source type 健康统计 |
 | 正文抽取层 | `content_fetcher.py`、`extractors/`、`content_quality.py` | `trafilatura` 主抽取器、heuristic HTML/正文清洗、`Playwright` 浏览器兜底、`requests` 抓正文、规则型质量门禁 |
 | AI enrichment | `analyzer.py` | `pydantic` schema 校验、结构化 JSON prompt、运行时 AI backend 适配、失败降级与部分成功隔离 |
 | Stack Relevance | `internal_relevance/`、`config/stack_profile.example.yaml` | `PyYAML` 读取 stack profile、`tomllib`/JSON/requirements manifest 扫描、规则型匹配打分、可解释 reasons / matched signals |
-| 资产存储兼容层 | `archive_store.py`、`state.py` | `sqlite3` 本地资产库、JSON 字段序列化、兼容旧资产写入路径、归档与 run/article 记录 |
-| 统一数据库层 | `db/`、`repository_provider.py`、`alembic/` | `SQLAlchemy 2.x` ORM / repository、SQLite + PostgreSQL 双后端、`Alembic` 迁移、`psycopg` PostgreSQL 驱动 |
-| 搜索与检索 | `search.py`、`retrieval.py`、`db/repositories/search_repository.py`、`db/repositories/retrieval_repository.py` | SQLite FTS / SQL 文本检索、hybrid lexical + embedding ranking、fake embedding fallback、`pgvector` 向量位点 |
-| QA 与 Insights | `qa.py`、`insights.py`、`qa_cli.py`、`insights_cli.py` | retrieval 召回、规则型答案拼接、主题聚类/时间线/热度聚合、CLI 查询接口 |
-| API 与产品化输出 | `api/`、`delivery.py`、`feedback.py`、`ops.py` | `FastAPI` + `uvicorn`、Pydantic response schema、webhook delivery、feedback 写入、运行 KPI / ops summary 聚合 |
-| 配置系统 | `defaults.py`、`settings.py`、`config.py`、`config_loader.py`、`config_validator.py` | `pydantic-settings` 环境变量读取、YAML feed 配置、默认值常量、配置校验与兼容 facade |
+| 资产存储层 | `archive_store_ops/`、`state.py`、`domain/article_identity.py` | `sqlite3` 本地资产库、共享 identity/hash helper、归档与 run/article 记录 |
+| 统一数据库层 | `db/`、`db/repository_bundle.py`、`alembic/` | `SQLAlchemy 2.x` ORM / repository、SQLite + PostgreSQL 双后端、`Alembic` 迁移、`psycopg` PostgreSQL 驱动 |
+| 搜索与检索 | `search/`、`retrieval/`、`db/repositories/search_repository.py`、`db/repositories/retrieval_repository.py` | SQLite FTS / SQL 文本检索、hybrid lexical + embedding ranking、fake embedding fallback、`pgvector` 向量位点 |
+| QA 与 Insights | `qa/`、`insights/` | retrieval 召回、规则型答案拼接、主题聚类/时间线/热度聚合、application service facade |
+| API 与产品化输出 | `api/`、`delivery_support/`、`feedback/`、`ops/` | `FastAPI` + `uvicorn`、Pydantic response schema、webhook delivery、feedback 写入、运行 KPI / ops summary 聚合 |
+| 配置系统 | `config/` | `pydantic-settings` 环境变量读取、YAML feed 配置、默认值常量、配置校验 |
 | 运行观测 | `observability/` | `RunContext` / `TaskContext` 运行语义、`NoopObserver` / `InMemoryObserver` / `JsonlObserver` 本地 observer、stage/task/run 级结构化事件与 run summary |
 | 任务与编排 | `tasks/`、`orchestration/` | 标准化 task record、local task runner、幂等与重试语义、Prefect adapter 渐进式接入 |
 | 测试与质量守门 | `test/`、`test/fixtures/` | `pytest` 单测/集成测试、fixture corpus、retrieval eval、stack relevance eval、`ruff` 静态检查 |
@@ -252,10 +318,12 @@ products/tech_blog_monitor/
 
 1. `agent.py`
 2. `monitor.py`
-3. `fetcher.py` / `content_fetcher.py` / `analyzer.py`
-4. `archive_store.py` + `db/` + `repository_provider.py`
-5. `observability/` + `tasks/` + `orchestration/`
-6. `api/app.py`
+3. `bootstrap.py` + `run_monitor_bindings.py` + `run_monitor_runtime.py`
+4. `application/` + `ports/`
+5. `fetcher.py` / `content_fetcher.py` / `analyzer.py`
+6. `archive_store_ops/` + `db/`
+7. `observability/` + `tasks/` + `orchestration/`
+8. `api/app.py`
 
 `P1.3` 起，抓取主链路不再把 RSS 细节硬编码在主调度里。`FeedSource` 现在显式带有
 `source_type` 和 `metadata`，`fetch_all()` 会通过 `source_adapters/` 解析到对应 adapter。
@@ -394,7 +462,7 @@ TECH_BLOG_DATABASE_URL=postgresql+psycopg://user:pass@127.0.0.1:5432/tech_blog \
 ./.venv/bin/python3 ./.venv/bin/alembic -c alembic.ini upgrade head
 ```
 
-当同时配置 `TECH_BLOG_DATABASE_URL` 时，系统会在保持 `ArchiveStore.record_run(...)` 语义不变的前提下，把 sqlite 资产镜像同步到 `database_url`，并一并维护：
+当配置 `TECH_BLOG_DATABASE_URL` 时，默认 run 写侧会直接写入 repository-backed `database_url`；当只配置 `TECH_BLOG_ASSET_DB_PATH` 时，则写入对应 sqlite。`mirror_database` 阶段仅在“已有 sqlite 资产需要补同步到另一个 `database_url`”时触发，同时维护：
 
 - `article_search_documents`
 - `chunk_embedding_records`
@@ -430,7 +498,7 @@ uv run uvicorn products.tech_blog_monitor.api.app:app --host 127.0.0.1 --port 80
 检索：
 
 ```bash
-PYTHONPATH=. python -m products.tech_blog_monitor.search_cli \
+PYTHONPATH=. python -m products.tech_blog_monitor.cli.search \
   --db reports/tech_blog/tech_blog_assets.db \
   --query agent \
   --days 30
@@ -439,7 +507,7 @@ PYTHONPATH=. python -m products.tech_blog_monitor.search_cli \
 QA：
 
 ```bash
-PYTHONPATH=. python -m products.tech_blog_monitor.qa_cli \
+PYTHONPATH=. python -m products.tech_blog_monitor.cli.qa \
   --db reports/tech_blog/tech_blog_assets.db \
   --question "最近哪些文章在讨论 agent memory？"
 ```
@@ -447,7 +515,7 @@ PYTHONPATH=. python -m products.tech_blog_monitor.qa_cli \
 Insights：
 
 ```bash
-PYTHONPATH=. python -m products.tech_blog_monitor.insights_cli \
+PYTHONPATH=. python -m products.tech_blog_monitor.cli.insights \
   --db reports/tech_blog/tech_blog_assets.db \
   --days 14 \
   --top-k 5
@@ -483,6 +551,7 @@ PYTHONPATH=. python -m products.tech_blog_monitor.agent task rebuild-retrieval-i
 - `scheduled_run`
 - `rebuild_search_index`
 - `rebuild_retrieval_index`
+- `drain_deliveries`
 
 ### 7. Delivery / Feedback / Ops
 
@@ -503,12 +572,31 @@ python -m products.tech_blog_monitor.agent --output reports/tech_blog/report.md
 - 限流
 - 角色化 digest
 
+对已落库但未成功送达的 delivery，可直接通过 CLI / task runner 做恢复重放：
+
+```bash
+PYTHONPATH=. python -m products.tech_blog_monitor.agent delivery drain \
+  --db reports/tech_blog/tech_blog_assets.db \
+  --run-id <run_id> \
+  --status failed \
+  --limit 20 \
+  --webhook https://example.com/webhook \
+  --requested-by ops
+```
+
+第一版 `delivery drain` 只包装现有 delivery 状态机：
+
+- 支持 `pending`、`failed`、`rate_limited`、`all_retryable`
+- 默认跳过 `delivered`
+- 输出结构化 JSON，适合作为运维入口
+- 会把本次恢复动作记入 `task_records`
+
 当前尚未接入平台专有通知适配器，也未做 push queue / worker 分离部署。
 
 写入反馈：
 
 ```bash
-PYTHONPATH=. python -m products.tech_blog_monitor.feedback_cli add \
+PYTHONPATH=. python -m products.tech_blog_monitor.cli.feedback add \
   --db reports/tech_blog/tech_blog_assets.db \
   --run-id <run_id> \
   --role engineer \
@@ -534,7 +622,7 @@ python -m products.tech_blog_monitor.agent ops summary --limit 50
 - `delivery_success_rate`
 - `mean_run_duration_ms`
 
-当前这两条入口复用同一套 `ops.py` 聚合逻辑，`limit` 都表示“最近多少条 task_records 进入窗口”。若只配置 `TECH_BLOG_DATABASE_URL` 而未配置 `TECH_BLOG_ASSET_DB_PATH`，CLI 与 API 仍会直接走数据库 URL 工作。
+当前这两条入口复用同一套 `ops/` 聚合逻辑，`limit` 都表示“最近多少条 task_records 进入窗口”。若只配置 `TECH_BLOG_DATABASE_URL` 而未配置 `TECH_BLOG_ASSET_DB_PATH`，CLI 与 API 仍会直接走数据库 URL 工作。
 
 ## 关键设计说明
 
@@ -542,9 +630,18 @@ python -m products.tech_blog_monitor.agent ops summary --limit 50
 
 当前正文抓取采用分层 extractor 链：
 
+- 命中小规模 site rule pack 时，先尝试站点规则抽取
 - 主路径优先 `Trafilatura`
 - 主路径为空或失败时回退到现有 heuristic extractor
 - 页面疑似 JS-heavy、正文为空或正文质量不足时，再受控尝试 `Playwright` fallback
+
+当前内置 site rule pack 只覆盖少量高价值源：
+
+- `OpenAI News`
+- `Cloudflare Blog`
+- `GitHub Blog`
+
+site rule 只负责 include selector、exclude selector 和少量 metadata；规则失败或正文质量不足时，仍会继续走通用链和既有 quality gate。
 
 正文结果继续写回既有字段：
 
@@ -592,7 +689,7 @@ P2 为主链路增加了本地优先的结构化运行观测、任务与调度�
 - `analyze_articles`
 - `write_report`
 - `archive_assets`
-- `mirror_database`
+- `mirror_database`（当 primary target 已经是 `database_url` 时会跳过）
 - `dispatch_deliveries`
 
 单次 run 结束后：
@@ -756,6 +853,8 @@ P2.5 收口后的最小回归门禁建议固定为：
 | `TECH_BLOG_DELIVERY_RATE_LIMIT` | 每分钟成功推送上限 |
 | `TECH_BLOG_DELIVERY_MAX_RETRIES` | 失败重试上限 |
 | `AGENT_RUNTIME` | AI 后端，如 `trae` / `codex` / `claude_code` |
+| `TECH_BLOG_ENRICHMENT_WORKERS` | AI enrichment 批次并发数，默认 `1` |
+| `TECH_BLOG_ENRICHMENT_CONTENT_CHARS` | 每篇文章进入 AI enrichment prompt 的正文字符数，默认 `4000`；设为 `0` 表示使用已抓取的完整清洗正文 |
 
 ## 测试与验证
 
