@@ -4,12 +4,13 @@
 
 ## 当前决定
 
-首批公开范围只包含以下四块：
+首批公开范围当前包含以下五块：
 
 - `runtime/`
 - `docs/agents/`
 - `docs/platform/`
 - `products/tech_blog_monitor/`
+- `products/feishu_bot/`
 
 这份文档的作用不是讨论“还能不能多开一些”，而是把当前已经确认的首批范围固定下来，避免后续执行时继续漂移。
 
@@ -110,6 +111,30 @@
 - `delivery.py` 保留通用 webhook 语义，不带企业内部接收方约定
 - 不导出任何私有 runbook、session risk、todo、reports
 
+### 5. `products/feishu_bot/`
+
+定位：
+
+- 基于 `lark-cli` 的聊天机器人样板产品
+
+应包含：
+
+- 长连接消息接入
+- 文件后续追问流程
+- `runtime/memory/` 接入
+- 配置、README、test
+
+公开价值：
+
+- 展示聊天型 Agent 如何复用统一 runtime 和 memory 主干
+- 展示产品接入层与平台层的职责边界
+
+注意事项：
+
+- 只公开产品代码、README、测试和公开模板配置
+- 不导出 trial runbook、trial record、completion statement 等试运行文档
+- 不导出真实 app 配置、真实订阅状态和本地运行产物
+
 ## V1 明确不包含
 
 以下内容不属于首批公开范围：
@@ -120,7 +145,6 @@
 - `infra/`
 - `products/code_review_ci/`
 - `products/lint_fix_mr/`
-- `products/feishu_bot/`
 - `products/issue_monitor/`
 - `products/pre_occ_agent/`
 - `config/`
@@ -183,11 +207,12 @@
 
 ## 一句话结论
 
-`Open Source V1` 的范围已经固定为四块：
+`Open Source V1` 的范围当前固定为五块：
 
 - `runtime/`
 - `docs/agents/`
 - `docs/platform/`
 - `products/tech_blog_monitor/`
+- `products/feishu_bot/`
 
 其他目录先不动，不在这一轮讨论范围内。

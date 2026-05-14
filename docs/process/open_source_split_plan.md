@@ -26,12 +26,13 @@
 
 - [docs/process/open_source_scope_v1.md](open_source_scope_v1.md)
 
-当前 `V1` 只公开四块：
+当前 `V1` 公开五块：
 
 - `runtime/`
 - `docs/agents/`
 - `docs/platform/`
 - `products/tech_blog_monitor/`
+- `products/feishu_bot/`
 
 ## 分类原则
 
@@ -144,16 +145,22 @@
 
 ### 4. `products/feishu_bot/`
 
-建议：`Redact Then Open`
+建议：`Open Source`
 
 原因：
 
-- 可以公开
-- 但平台绑定明显，且不是当前最强样板产品
+- 已经具备独立产品价值
+- 能清楚展示 `runtime/` 与产品接入层的分工
+- 会话记忆链路已经沉淀到 `runtime/memory/`，产品层更适合做公开样板
+
+公开边界：
+
+- 保留代码、README、测试和公开模板配置
+- 去掉试运行 runbook、trial 记录、completion statement 和真实订阅状态文档
 
 公开优先级：
 
-- 低于 `tech_blog_monitor`
+- 当前已纳入公开 monorepo，但仍低于 `tech_blog_monitor` 的完整产品示范权重
 
 ### 5. `products/issue_monitor/`
 
